@@ -15,7 +15,7 @@ RUN apt-get install -y oracle-java7-installer
 RUN sudo apt-get install unzip
 
 # Add and unzip the Play app
-ADD path/to/my-play-artifact-1.0-SNAPSHOT.zip /opt/my-play-artifact-1.0-SNAPSHOT.zip
+ADD path/to/or/url/my-play-artifact-1.0-SNAPSHOT.zip /opt/my-play-artifact-1.0-SNAPSHOT.zip
 RUN unzip /opt/my-play-artifact-1.0-SNAPSHOT.zip -d /opt
 
 # Give exec permission to the start script (unzip doesn't preserve permissions)
