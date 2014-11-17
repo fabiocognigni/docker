@@ -40,4 +40,5 @@ WORKDIR /opt/octopress-hbc
 
 EXPOSE 4000
 
+# TODO launch rake preview
 CMD ["/bin/bash"]
