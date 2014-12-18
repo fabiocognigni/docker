@@ -22,23 +22,36 @@ ENV HOME /root
 
 RUN echo "source /usr/local/rvm/scripts/rvm" >> /root/.bashrc; 
 
+#RUN /bin/bash -l -c "source /usr/local/rvm/scripts/rvm; \
+#  rvm install 2.1.4; \
+#  rvm use 2.1.4; \
+#  rvm rubygems latest; \
+#  cd /opt/octopress; \
+#  gem install bundler; \
+#  bundle install; \
+#  rake install" 
+
+# same as abobe but with no rake install (themes are already installed)
 RUN /bin/bash -l -c "source /usr/local/rvm/scripts/rvm; \
   rvm install 2.1.4; \
   rvm use 2.1.4; \
   rvm rubygems latest; \
   cd /opt/octopress; \
   gem install bundler; \
-  bundle install; \
-  rake install" 
+  bundle install"
 
 RUN echo "rvm use 2.1.4" >> /root/.bashrc
 
 # make sure we're working in UTF8
 ENV LC_ALL en_US.utf8
 
-WORKDIR /opt/octopress-hbc
+WORKDIR /opt/octopress
 
 EXPOSE 4000
 
-# TODO launch rake preview
-CMD ["/bin/bash"]
+# CMD /bin/bash -l -c "rake preview"
+# ENTRYPOINT ["rake", "preview"]
+
+# Run Octopress
+# CMD ["rake", "preview"]
+# CMD /usr/local/rvm/gems/ruby-2.1.4/bin/rake preview
