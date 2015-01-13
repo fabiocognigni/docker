@@ -38,7 +38,8 @@ RUN /bin/bash -l -c "source /usr/local/rvm/scripts/rvm; \
   rvm rubygems latest; \
   cd /opt/octopress; \
   gem install bundler; \
-  bundle install"
+  bundle install; \
+  gem install rake --version=0.9.2.2"
 
 RUN echo "rvm use 2.1.4" >> /root/.bashrc
 
@@ -49,7 +50,8 @@ WORKDIR /opt/octopress
 
 EXPOSE 4000
 
-# CMD /bin/bash -l -c "rake preview"
+CMD /bin/bash -l -c "rake preview"
+# CMD /bin/bash -l -c "bundle exec rake preview"
 # ENTRYPOINT ["rake", "preview"]
 
 # Run Octopress
