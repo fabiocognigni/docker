@@ -8,10 +8,14 @@ RUN apt-get update; \
 RUN apt-get -q -y install git curl; \
   apt-get clean
 
-# TODO create ssh keys, copy into the docker img and set as deploy key in the GitHub repo
+# SSH set up to access GitHub repo
+RUN mkdir -p /root/.ssh
+ADD ssh/ /root/.ssh/
+RUN chmod 600 /root/.ssh/*
 RUN git clone -b source git@github.com:fabiocognigni/fabiocognigni.github.io.git /opt/octopress
-# RUN git clone -b source https://xxxxxx:yyyyyy@github.com/fabiocognigni/fabiocognigni.github.io.git /opt/octopress
-# RUN git clone git://github.com/imathis/octopress.git /opt/octopress
+
+# HTTP access - with usrname and pwd in line (not recommended)
+# RUN git clone -b source https://my-usrname:my-pwd@github.com/fabiocognigni/fabiocognigni.github.io.git /opt/octopress
 
 # Added BY ME to fix GPG signature verification failure
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
@@ -51,7 +55,6 @@ WORKDIR /opt/octopress
 EXPOSE 4000
 
 CMD /bin/bash -l -c "rake preview"
-# CMD /bin/bash -l -c "bundle exec rake preview"
 # ENTRYPOINT ["rake", "preview"]
 
 # Run Octopress
